@@ -5,5 +5,16 @@
   "repository": "git@github.com:tkuminecz/oauth-portal.git",
   "author": "Tim Kuminecz <tkuminecz@gmail.com>",
   "license": "MIT",
-  "private": false
+  "private": false,
+  "scripts": {
+    "vercel": "vercel dev --listen 5000",
+    "build": "next build",
+    "dev": "next dev --port 5000",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "~9.4.4",
+    "react": "~16.13.1",
+    "react-dom": "~16.13.1"
+  }
 }
