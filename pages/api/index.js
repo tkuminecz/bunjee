@@ -1,3 +1,4 @@
 export default (req, res) => {
-  res.send('ok').end();
+  res.send('ok')
+  res.end();
 }
