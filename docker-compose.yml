@@ -1,10 +1,10 @@
 version: '3'
 services:
   mongo:
-    image: mongo
+    image: postgres
     ports:
-      - 28017:27017
+      - 6432:5432
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: bunj33
-      MONGO_INITDB_DATABASE: bunjee
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: bunj33
+      POSTGRES_DB: bunjee

@@ -1,8 +1,27 @@
-import { prop, getModelForClass } from '@typegoose/typegoose';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm';
+import { RedirectUri } from './RedirectUri';
+import { User } from './User';
 
+@Entity()
 export class App {
-  @prop()
-  name!: string;
-}
+  @PrimaryGeneratedColumn('uuid')
+  id!: string;
 
-export default getModelForClass(App);
+  @Column()
+  name!: string;
+
+  @Column()
+  secret: string;
+
+  @ManyToOne(() => User, user => user.apps)
+  user: Promise<User>;
+
+  @OneToMany(() => RedirectUri, redirectUri => redirectUri.app)
+  redirectUris: Promise<RedirectUri[]>;
+}
