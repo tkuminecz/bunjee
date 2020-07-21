@@ -27,6 +27,7 @@ const styles = {
 export default () => (
   <>
     <Head>
+      <title>bunjee</title>
       <link
         href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css"
         integrity="sha384-VhBcF/php0Z/P5ZxlxaEx1GwqTQVIBu4G4giRWxTKOCjTxsPFETUDdVL5B6vYvOt"
