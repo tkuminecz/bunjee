@@ -8,6 +8,7 @@ const connection = connectionManager.create({
   type: 'postgres',
   url: process.env.POSTGRES_URL,
   synchronize: true,
+  entityPrefix: process.env.DB_PREFIX,
   entities: [App, RedirectUri, User],
 });
 
@@ -16,4 +17,18 @@ export const connect = async (): Promise<() => Promise<void>> => {
   return () => connection.close();
 };
 
-export default connect;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const withDb = <T extends (...args: any[]) => Promise<void>>(
+  doWork: T
+): (() => Promise<void>) => {
+  return async (...args: Parameters<T>) => {
+    const disconnect = await connect();
+    try {
+      await Promise.resolve(doWork(...args));
+    } catch (err) {
+      await disconnect();
+      throw err;
+    }
+    await disconnect();
+  };
+};

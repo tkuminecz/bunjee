@@ -16,6 +16,9 @@ export class App {
   @Column()
   name!: string;
 
+  @Column()
+  secret: string;
+
   @ManyToOne(() => User, user => user.apps)
   user: Promise<User>;
 

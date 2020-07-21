@@ -7,21 +7,24 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "vercel": "vercel dev --listen 5000",
+    "vercel": "vercel dev --listen 5001",
     "build": "next build",
-    "dev": "next dev --port 5000",
-    "lint": "eslint --report-unused-disable-directives --ext=.js,.jsx,.ts,.tsx ./src ./pages",
+    "dev": "next dev --port 5001",
+    "lint": "eslint --report-unused-disable-directives --ext=.js,.jsx,.ts,.tsx ./lib ./src ./pages",
     "start": "next start",
-    "test": "yarn lint && yarn test",
+    "test": "yarn lint && yarn typecheck",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "cryptr": "~6.0.2",
+    "matcher": "~3.0.0",
     "next": "~9.4.4",
     "pg": "~8.3.0",
+    "qs": "~6.9.4",
     "react": "~16.13.1",
     "react-dom": "~16.13.1",
     "reflect-metadata": "~0.1.13",
+    "ts-toolbelt": "~6.13.15",
     "typeorm": "~0.2.25"
   },
   "devDependencies": {
