@@ -1,0 +1,9 @@
+{
+  "name": "oauth-portal",
+  "version": "0.1.0",
+  "main": "index.js",
+  "repository": "git@github.com:tkuminecz/oauth-portal.git",
+  "author": "Tim Kuminecz <tkuminecz@gmail.com>",
+  "license": "MIT",
+  "private": false
+}
