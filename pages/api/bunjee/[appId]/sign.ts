@@ -5,12 +5,7 @@ import { App } from '~/models/App';
 import { encrypt } from '~/crypt';
 import { withErrorHandler } from '~lib/api';
 import { withDb } from '~/db';
-
-const getBaseUri = () => {
-  const useHttps = process.env.USE_HTTPS === 'true';
-  const protocol = useHttps ? 'https://' : 'http://';
-  return `${protocol}${process.env.VERCEL_URL}`;
-};
+import { getBaseUrl } from '~/helpers';
 
 export default withDb(
   withErrorHandler(async (req, res) => {
@@ -38,7 +33,7 @@ export default withDb(
 
     const state = encrypt(app.secret, JSON.stringify({ redirectUri }));
     res.json({
-      redirectUri: `${getBaseUri()}/api/app/${appId}/callback`,
+      redirectUri: `${getBaseUrl()}/api/app/${appId}/callback`,
       state,
     });
     res.end();
