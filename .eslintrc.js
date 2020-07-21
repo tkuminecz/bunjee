@@ -92,6 +92,8 @@ module.exports = {
     'prettier/prettier': ['error', { singleQuote: true, arrowParens: 'avoid' }],
     'jsx-a11y/anchor-is-valid': 'off',
     'import/prefer-default-export': 'off',
+    'import/no-named-as-default': 'off',
+    'import/no-cycle': 'off',
     'no-void': 'off',
     'class-methods-use-this': 'off',
     'no-nested-ternary': 'off',
