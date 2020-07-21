@@ -16,6 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@auth0/nextjs-auth0": "~0.15.0",
     "@typegoose/typegoose": "~7.3.0",
     "mongoose": "~5.9.25",
     "next": "~9.4.4",
