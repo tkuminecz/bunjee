@@ -6,6 +6,7 @@ import { encrypt } from '~/crypt';
 import { withErrorHandler } from '~lib/api';
 import { withDb } from '~/db';
 import { getBaseUrl } from '~/helpers';
+import { getCanonicalUrl } from '~/vercel';
 
 export default withDb(
   withErrorHandler(async (req, res) => {
@@ -32,8 +33,9 @@ export default withDb(
     if (!uriMatches) throw new Error('Invalid redirectUri');
 
     const state = encrypt(app.secret, JSON.stringify({ redirectUri }));
+    const canonicalUrl = await getCanonicalUrl();
     res.json({
-      redirectUri: `${getBaseUrl()}/api/app/${appId}/callback`,
+      redirectUri: `${getBaseUrl(canonicalUrl)}/api/app/${appId}/callback`,
       state,
     });
     res.end();
