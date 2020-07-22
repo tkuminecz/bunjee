@@ -13,7 +13,9 @@ const redirectToCanonicalUrl = async ctx => {
       // we're not on the canonical url, redirect
       const destUrl = `${getBaseUrl(canonicalUrl)}${ctx.req.url}`;
       // eslint-disable-next-line no-console
-      console.warn(`Not at canonical url, redirecting to ${destUrl}`);
+      console.warn(
+        `Not at canonical url (${thisUrl}), redirecting to ${destUrl}`
+      );
       ctx.res.writeHead(302, {
         Location: destUrl,
       });
