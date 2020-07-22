@@ -17,6 +17,7 @@ const redirectToCanonicalUrl = async ctx => {
       ctx.res.writeHead(302, {
         Location: destUrl,
       });
+      ctx.res.end();
     }
   }
 };
