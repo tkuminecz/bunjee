@@ -23,7 +23,7 @@
     "paths": {
       "~/*": ["src/*"],
       "~pages/*": ["pages/*"],
-      "~lib/*": ["lib/*"]
+      "~lib/*": ["src/lib/*"]
     }
   },
   "exclude": [

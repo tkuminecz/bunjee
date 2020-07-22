@@ -10,7 +10,7 @@
     "vercel": "vercel dev --listen 5001",
     "build": "next build",
     "dev": "next dev --port 5001",
-    "lint": "eslint --report-unused-disable-directives --ext=.js,.jsx,.ts,.tsx ./lib ./src ./pages",
+    "lint": "eslint --report-unused-disable-directives --ext=.js,.jsx,.ts,.tsx ./src ./pages",
     "start": "next start",
     "test": "yarn lint && yarn typecheck",
     "typecheck": "tsc --noEmit"
@@ -19,6 +19,7 @@
     "@auth0/nextjs-auth0": "~0.15.0",
     "@material-ui/core": "~4.11.0",
     "@tkuminecz/apollo-server-next": "~0.2.3",
+    "clsx": "~1.1.1",
     "cryptr": "~6.0.2",
     "isomorphic-unfetch": "~3.0.0",
     "matcher": "~3.0.0",

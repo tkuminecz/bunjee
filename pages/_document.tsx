@@ -1,6 +1,6 @@
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { enhanceDocument } from '~lib/next-mui-jss';
+import { enhanceDocument } from '~/lib/next-mui-jss';
 import { getCanonicalUrl } from '~/vercel';
 import { getBaseUrl } from '~/helpers';
 
