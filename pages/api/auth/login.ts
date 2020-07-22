@@ -5,5 +5,6 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<void> => {
-  await getAuth0().handleLogin(req, res);
+  const auth0 = await getAuth0();
+  return auth0.handleLogin(req, res);
 };

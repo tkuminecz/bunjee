@@ -1,5 +1,5 @@
-export const getBaseUrl = (): string => {
+export const getBaseUrl = (url: string): string => {
   const useHttps = process.env.USE_HTTPS === 'true';
   const protocol = useHttps ? 'https://' : 'http://';
-  return `${protocol}${process.env.VERCEL_URL}`;
+  return `${protocol}${url}`;
 };
