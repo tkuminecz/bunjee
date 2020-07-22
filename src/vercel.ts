@@ -2,7 +2,7 @@ import 'isomorphic-unfetch';
 
 export const getCanonicalUrl = async (): Promise<string> => {
   const CURRENT_URL = process.env.VERCEL_URL;
-  const API_TOKEN = process.env.VERCEL_API_TOKEN;
+  const API_TOKEN = process.env.VCL_API_TOKEN;
 
   // fetch deployment info
   const res = await fetch(
