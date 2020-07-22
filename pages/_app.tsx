@@ -4,7 +4,7 @@ import App, { AppProps } from 'next/app';
 import Head from 'next/head';
 import theme from '~/theme';
 import { Auth0Provider } from '~/auth0';
-import { enhanceApp } from '~lib/next-mui-jss';
+import { enhanceApp } from '~/lib/next-mui-jss';
 import AuthGuard from '~/components/AuthGuard';
 
 const MyApp: React.FC<AppProps> = enhanceApp(theme)(
@@ -14,6 +14,7 @@ const MyApp: React.FC<AppProps> = enhanceApp(theme)(
         <Auth0Provider>
           <Head>
             <title>bunjee</title>
+            <link rel="icon" type="image/svg+xml" href="/bunjee.svg" />
             <link
               href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css"
               integrity="sha384-VhBcF/php0Z/P5ZxlxaEx1GwqTQVIBu4G4giRWxTKOCjTxsPFETUDdVL5B6vYvOt"

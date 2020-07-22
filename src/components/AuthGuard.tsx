@@ -1,7 +1,8 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles } from '@material-ui/core';
 import { useAuth0User } from '~/auth0';
 import LoginButton from './LoginButton';
+import Logo from './Logo';
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -17,13 +18,7 @@ const useStyles = makeStyles(() => ({
     background: 'linear-gradient(170deg, #eee 0%, #fff 100%)',
   },
   logo: {
-    color: '#333',
-    fontFamily: 'Lato',
     fontSize: '3rem',
-    fontWeight: 300,
-  },
-  icon: {
-    marginRight: '0.5rem',
   },
 }));
 
@@ -36,31 +31,15 @@ const AuthGuard: React.FC<Props> = ({ children }) => {
   const classes = useStyles();
   return (
     <>
-      {loading ? (
+      {loading || !user ? (
         <>
           <div className={classes.wrapper}>
-            <span className={classes.logo}>
-              <i className={`fal fa-portal-exit ${classes.icon}`} />
-              bunjee
-            </span>
+            <Logo className={classes.logo} />
+            {loading ? <CircularProgress /> : <LoginButton />}
           </div>
         </>
       ) : (
-        <>
-          {user ? (
-            <>{children}</>
-          ) : (
-            <>
-              <div className={classes.wrapper}>
-                <span className={classes.logo}>
-                  <i className={`fal fa-portal-exit ${classes.icon}`} />
-                  bunjee
-                </span>
-                <LoginButton />
-              </div>
-            </>
-          )}
-        </>
+        <>{children}</>
       )}
     </>
   );

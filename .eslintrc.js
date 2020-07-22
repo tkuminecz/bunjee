@@ -39,7 +39,7 @@ module.exports = {
         map: [
           ['~', path.resolve(__dirname, './src')],
           ['~pages', path.resolve(__dirname, './pages')],
-          ['~lib', path.resolve(__dirname, './lib')],
+          ['~lib', path.resolve(__dirname, './src/lib')],
         ],
         extensions: ['.ts', '.js', '.jsx', '.tsx', '.png'],
       },
