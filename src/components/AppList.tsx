@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery, gql } from '@apollo/react-hooks';
-import { CircularProgress, makeStyles } from '@material-ui/core';
+import { LinearProgress, makeStyles } from '@material-ui/core';
 import Link from 'next/link';
 
 const APPS = gql`
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AppList: React.FC = () => {
-  const { data, loading, error } = useQuery(APPS);
+  const { data, loading, error } = useQuery(APPS, { fetchPolicy: 'no-cache' });
   const apps = (data && data.apps) || [];
   const classes = useStyles();
 
@@ -29,8 +29,13 @@ const AppList: React.FC = () => {
   return (
     <>
       <h3>Apps</h3>
+      <p>
+        <Link href="/app/create" passHref>
+          <a>Add new app</a>
+        </Link>
+      </p>
       {loading ? (
-        <CircularProgress />
+        <LinearProgress />
       ) : (
         <ul>
           {apps.map(app => (

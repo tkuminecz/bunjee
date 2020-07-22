@@ -34,6 +34,7 @@ export class AppResolver {
   @Mutation(() => App)
   async deleteApp(@Arg('id') id: string): Promise<App> {
     const entity = await this.appRepo.findOneOrFail(id);
-    return this.appRepo.remove(entity);
+    await this.appRepo.remove(entity);
+    return { ...entity, id };
   }
 }
