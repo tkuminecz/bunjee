@@ -12,9 +12,20 @@ const connection = connectionManager.create({
   entities: [App, RedirectUri, User],
 });
 
+let connections = 0;
+
 export const connect = async (): Promise<() => Promise<void>> => {
-  await connection.connect();
-  return () => connection.close();
+  connections += 1;
+  if (!connection.isConnected) {
+    await connection.connect();
+  }
+
+  return async () => {
+    connections -= 1;
+    if (connections === 0) {
+      await connection.close();
+    }
+  };
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
