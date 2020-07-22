@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const AppDetails: NextPage<Props> = ({ appId }) => {
-  const { data, loading, error } = useQuery(APP, { variables: { appId } });
+  const { data } = useQuery(APP, { variables: { appId } });
   return (
     <Page>
       <p>{data?.app?.name}</p>
