@@ -24,7 +24,7 @@ export const enhanceDocument = (
           enhanceApp: App => props => sheets.collect(<App {...props} />),
         });
       ctx.renderPage = renderPage;
-      const initialProps = await Document.getInitialProps(ctx);
+      const initialProps = await OrigDocument.getInitialProps(ctx);
       return {
         ...initialProps,
         styles: [
