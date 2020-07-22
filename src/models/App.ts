@@ -5,15 +5,19 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
+import { Field, ObjectType } from 'type-graphql';
 import { RedirectUri } from './RedirectUri';
 import { User } from './User';
 
 @Entity()
+@ObjectType()
 export class App {
   @PrimaryGeneratedColumn('uuid')
+  @Field()
   id!: string;
 
   @Column()
+  @Field()
   name!: string;
 
   @Column()
