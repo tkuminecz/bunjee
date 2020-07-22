@@ -15,8 +15,6 @@ export const getCanonicalUrl = async (): Promise<string> => {
   );
   if (res.ok) {
     const deployInfo = await res.json();
-    console.log({ vercelUrl });
-    console.log('got deployment info', deployInfo);
     const [firstAlias] = deployInfo?.alias || [];
     if (firstAlias) return firstAlias;
   }

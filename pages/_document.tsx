@@ -5,7 +5,7 @@ import { getCanonicalUrl } from '~/vercel';
 import { getBaseUrl } from '~/helpers';
 
 const redirectToCanonicalUrl = async ctx => {
-  if (ctx.req) {
+  if (process.env.USE_CANONICAL_HOST === 'true' && ctx.req) {
     // we are server-side
     const currentHost = ctx.req.headers.host;
     const canonicalUrl = await getCanonicalUrl();
