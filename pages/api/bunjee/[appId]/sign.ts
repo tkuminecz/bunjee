@@ -5,12 +5,8 @@ import { App } from '~/models/App';
 import { encrypt } from '~/crypt';
 import { withErrorHandler } from '~lib/api';
 import { withDb } from '~/db';
-
-const getBaseUri = () => {
-  const useHttps = process.env.USE_HTTPS === 'true';
-  const protocol = useHttps ? 'https://' : 'http://';
-  return `${protocol}${process.env.VERCEL_URL}`;
-};
+import { getBaseUrl } from '~/helpers';
+import { getCanonicalUrl } from '~/vercel';
 
 export default withDb(
   withErrorHandler(async (req, res) => {
@@ -37,8 +33,9 @@ export default withDb(
     if (!uriMatches) throw new Error('Invalid redirectUri');
 
     const state = encrypt(app.secret, JSON.stringify({ redirectUri }));
+    const canonicalUrl = await getCanonicalUrl();
     res.json({
-      redirectUri: `${getBaseUri()}/api/app/${appId}/callback`,
+      redirectUri: `${getBaseUrl(canonicalUrl)}/api/app/${appId}/callback`,
       state,
     });
     res.end();
