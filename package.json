@@ -34,6 +34,7 @@
     "react-dom": "~16.13.1",
     "react-hook-form": "~6.0.8",
     "reflect-metadata": "~0.1.13",
+    "shortid": "~2.2.15",
     "ts-toolbelt": "~6.13.15",
     "type-graphql": "~1.0.0-rc.3",
     "typeorm": "~0.2.25"

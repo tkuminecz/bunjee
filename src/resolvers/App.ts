@@ -40,15 +40,22 @@ export class AppResolver {
     @Ctx() ctx: GqlContext
   ): Promise<App> {
     const app = this.appRepo.create(data);
-    app.secret = await generateSecret(Date.now().toString());
+    app.secret = await generateSecret();
     app.user = Promise.resolve(ctx.user);
     return this.appRepo.save(app);
   }
 
+  @Mutation(() => App)
   async updateApp(id: string, data: UpdateApp): Promise<App> {
     const app = await this.appRepo.findOneOrFail(id);
     app.name = data.name;
     return this.appRepo.save(app);
+  }
+
+  @Mutation(() => App)
+  async refreshAppSecret(@Arg('id') id: string): Promise<App> {
+    await this.appRepo.update(id, { secret: await generateSecret() });
+    return this.appRepo.findOneOrFail(id);
   }
 
   @Mutation(() => App)

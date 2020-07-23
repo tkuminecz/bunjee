@@ -9,8 +9,8 @@ export class RedirectUri {
   @Field()
   id: string;
 
-  @Field()
   @Column({ unique: true })
+  @Field()
   uri: string;
 
   @ManyToOne(() => App, app => app.redirectUris, {

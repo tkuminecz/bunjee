@@ -9,6 +9,7 @@ import {
   DELETE_APP,
   CREATE_REDIRECT_URI,
   DELETE_REDIRECT_URI,
+  REFRESH_APP_SECRET,
 } from '~/graphql/mutations';
 
 interface Props {
@@ -57,6 +58,13 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
     }
   };
 
+  const [refreshAppSecret, { loading: refreshingSecret }] = useMutation(
+    REFRESH_APP_SECRET
+  );
+  const onRefreshAppSecret = async () => {
+    await refreshAppSecret({ variables: { appId } });
+  };
+
   return (
     <Page>
       <h3>{data?.app.name}</h3>
@@ -85,6 +93,13 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
           </button>
         </form>
       </div>
+      <button
+        onClick={onRefreshAppSecret}
+        type="button"
+        disabled={refreshingSecret}
+      >
+        Refresh App Secret
+      </button>
       <button onClick={onDelete} type="button">
         Delete App
       </button>
