@@ -5,16 +5,20 @@ import {
   OneToMany,
   ManyToOne,
 } from 'typeorm';
+import { Field, ObjectType, InputType } from 'type-graphql';
 import { RedirectUri } from './RedirectUri';
 import { User } from './User';
 
 @Entity()
+@ObjectType()
 export class App {
   @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @Field()
+  id: string;
 
   @Column()
-  name!: string;
+  @Field()
+  name: string;
 
   @Column()
   secret: string;
@@ -24,4 +28,16 @@ export class App {
 
   @OneToMany(() => RedirectUri, redirectUri => redirectUri.app)
   redirectUris: Promise<RedirectUri[]>;
+}
+
+@InputType()
+export class CreateApp {
+  @Field()
+  name: string;
+}
+
+@InputType()
+export class UpdateApp {
+  @Field()
+  name: string;
 }

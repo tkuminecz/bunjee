@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, makeStyles } from '@material-ui/core';
+import Header from './Header';
 
 const useStyles = makeStyles(theme => ({
   page: {
@@ -16,6 +17,7 @@ const Page: React.FC<Props> = ({ children }) => {
   const classes = useStyles();
   return (
     <div className={classes.page}>
+      <Header />
       <main className={classes.content}>
         <Container>{children}</Container>
       </main>

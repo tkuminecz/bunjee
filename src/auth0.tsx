@@ -11,13 +11,14 @@ const EIGHT_HOURS = 60 * 60 * 8;
 
 export const getAuth0 = async (): Promise<ISignInWithAuth0> => {
   const canonicalUrl = await getCanonicalUrl();
+  const baseUrl = getBaseUrl(canonicalUrl);
   return initAuth0({
     domain: process.env.AUTH0_DOMAIN,
     clientId: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     scope: 'openid profile email',
-    redirectUri: `${getBaseUrl(canonicalUrl)}/api/auth/callback`,
-    postLogoutRedirectUri: `${getBaseUrl(canonicalUrl)}`,
+    redirectUri: `${baseUrl}/api/auth/callback`,
+    postLogoutRedirectUri: `${baseUrl}`,
     session: {
       cookieSecret: process.env.AUTH0_COOKIE_SECRET,
       cookieLifetime: EIGHT_HOURS,
