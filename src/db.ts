@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { getConnectionManager } from 'typeorm';
 import { App } from '~/models/App';
 import { RedirectUri } from './models/RedirectUri';

@@ -32,10 +32,11 @@ export default withDb(
     );
     if (!uriMatches) throw new Error('Invalid redirectUri');
 
-    const state = encrypt(app.secret, JSON.stringify({ redirectUri }));
+    const statePayload = { redirectUri, timestamp: new Date() };
+    const state = encrypt(app.secret, JSON.stringify(statePayload));
     const canonicalUrl = await getCanonicalUrl();
     res.json({
-      redirectUri: `${getBaseUrl(canonicalUrl)}/api/app/${appId}/callback`,
+      redirectUri: `${getBaseUrl(canonicalUrl)}/api/bunjee/${appId}/callback`,
       state,
     });
     res.end();
