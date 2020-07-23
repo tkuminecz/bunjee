@@ -3,13 +3,12 @@ import { getRepository } from 'typeorm';
 import matcher from 'matcher';
 import { App } from '~/models/App';
 import { encrypt } from '~/crypt';
-import { withErrorHandler } from '~lib/api';
-import { withDb } from '~/db';
+import { withDb, withErrorHandler } from '~lib/api';
 import { getBaseUrl } from '~/helpers';
 import { getCanonicalUrl } from '~/vercel';
 
-export default withDb(
-  withErrorHandler(async (req, res) => {
+export default withErrorHandler(
+  withDb(async (req, res) => {
     if (req.method !== 'POST') throw new Error('Only POST is supported');
 
     const { appId } = req.query;

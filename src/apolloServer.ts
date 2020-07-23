@@ -1,11 +1,12 @@
 import 'reflect-metadata';
-import { buildSchema, ClassType, NonEmptyArray } from 'type-graphql';
 import { ApolloServer } from '@tkuminecz/apollo-server-next';
 import { NextContext } from '@tkuminecz/apollo-server-next/dist/ApolloServer';
+import { buildSchema, ClassType, NonEmptyArray } from 'type-graphql';
 import { getRepository } from 'typeorm';
+import { NextApiHandler } from 'next';
 import { getAuth0 } from '~/auth0';
-import * as resolvers from '~/resolvers';
 import { User } from './models/User';
+import * as resolvers from '~/resolvers';
 
 export interface GqlContext extends NextContext {
   accessToken: string;
@@ -13,7 +14,11 @@ export interface GqlContext extends NextContext {
   user: User;
 }
 
-const bootstrap = async () => {
+interface ApolloServerModule {
+  handleRequest: NextApiHandler;
+}
+
+const bootstrap = async (): Promise<ApolloServerModule> => {
   const context = async (ctx: NextContext): Promise<GqlContext> => {
     const auth0 = await getAuth0();
     const session = await auth0.getSession(ctx.req);
@@ -49,4 +54,4 @@ const bootstrap = async () => {
   return { handleRequest };
 };
 
-export default bootstrap();
+export default bootstrap;

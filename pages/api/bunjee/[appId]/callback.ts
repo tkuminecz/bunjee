@@ -1,12 +1,11 @@
 import { getRepository } from 'typeorm';
 import qs from 'qs';
-import { withErrorHandler } from '~lib/api';
-import { withDb } from '~/db';
+import { withDb, withErrorHandler } from '~lib/api';
 import { App } from '~/models/App';
 import { decrypt } from '~/crypt';
 
-export default withDb(
-  withErrorHandler(async (req, res) => {
+export default withErrorHandler(
+  withDb(async (req, res) => {
     const { appId, state, code } = req.query;
     if (!appId) throw new Error('No appId provided!');
     if (!state) throw new Error('No state provided!');
