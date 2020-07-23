@@ -17,14 +17,9 @@ const MyApp: React.FC<AppProps> = enhanceApp(theme)(
           <title>bunjee</title>
           <link rel="icon" type="image/svg+xml" href="/bunjee.svg" />
           <link
-            href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css"
-            integrity="sha384-VhBcF/php0Z/P5ZxlxaEx1GwqTQVIBu4G4giRWxTKOCjTxsPFETUDdVL5B6vYvOt"
-            rel="stylesheet"
-            crossOrigin="anonymous"
-          />
-          <link
             href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            as="style"
           />
           <meta
             name="viewport"

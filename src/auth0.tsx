@@ -7,7 +7,7 @@ import { getCanonicalUrl } from './vercel';
 
 const inBrowser = !(typeof window === 'undefined');
 
-const EIGHT_HOURS = 60 * 60 * 8;
+const SEVEN_DAYS = 60 * 60 * 24 * 7;
 
 export const getAuth0 = async (): Promise<ISignInWithAuth0> => {
   const canonicalUrl = await getCanonicalUrl();
@@ -21,7 +21,7 @@ export const getAuth0 = async (): Promise<ISignInWithAuth0> => {
     postLogoutRedirectUri: `${baseUrl}`,
     session: {
       cookieSecret: process.env.AUTH0_COOKIE_SECRET,
-      cookieLifetime: EIGHT_HOURS,
+      cookieLifetime: SEVEN_DAYS,
       storeIdToken: true,
       storeAccessToken: true,
       storeRefreshToken: true,
