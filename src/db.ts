@@ -20,6 +20,8 @@ export const connect = async (): Promise<() => Promise<void>> => {
   if (!connection.isConnected) {
     await connection.connect();
   }
+  // eslint-disable-next-line no-console
+  console.log('db connection', connection, connection.entityMetadatas);
 
   return async () => {
     connections -= 1;
