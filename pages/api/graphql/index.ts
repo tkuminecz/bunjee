@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import graphqlServer from '~/graphql';
+import graphqlServer from '~/apolloServer';
 import { withDb } from '~/db';
 
 export default withDb(

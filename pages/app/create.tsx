@@ -1,18 +1,10 @@
 import React, { useEffect } from 'react';
-import { gql, useMutation } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { useForm } from 'react-hook-form';
 import { makeStyles } from '@material-ui/core';
 import { useRouter } from 'next/router';
 import Page from '~/components/Page';
-
-const CREATE = gql`
-  mutation CreateApp($data: CreateApp!) {
-    createApp(data: $data) {
-      id
-      name
-    }
-  }
-`;
+import { CREATE_APP } from '~/graphql/mutations';
 
 const useStyles = makeStyles(theme => ({
   error: {
@@ -26,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 const CreateAppPage: React.FC = () => {
   const router = useRouter();
   const classes = useStyles();
-  const [createApp, { loading: saving, data, error }] = useMutation(CREATE);
+  const [createApp, { loading: saving, data, error }] = useMutation(CREATE_APP);
   const { handleSubmit, register, errors } = useForm();
   const onSubmit = async values => {
     await createApp({

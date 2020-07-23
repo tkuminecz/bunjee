@@ -35,3 +35,9 @@ export class CreateApp {
   @Field()
   name: string;
 }
+
+@InputType()
+export class UpdateApp {
+  @Field()
+  name: string;
+}

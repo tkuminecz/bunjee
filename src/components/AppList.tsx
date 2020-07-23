@@ -1,16 +1,8 @@
 import React from 'react';
-import { useQuery, gql } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { LinearProgress, makeStyles } from '@material-ui/core';
 import Link from 'next/link';
-
-const APPS = gql`
-  query Apps {
-    apps {
-      id
-      name
-    }
-  }
-`;
+import { LIST_APPS } from '~/graphql/queries';
 
 const useStyles = makeStyles(() => ({
   id: {
@@ -20,7 +12,9 @@ const useStyles = makeStyles(() => ({
 }));
 
 const AppList: React.FC = () => {
-  const { data, loading, error } = useQuery(APPS, { fetchPolicy: 'no-cache' });
+  const { data, loading, error } = useQuery(LIST_APPS, {
+    fetchPolicy: 'no-cache',
+  });
   const apps = (data && data.apps) || [];
   const classes = useStyles();
 
@@ -37,17 +31,23 @@ const AppList: React.FC = () => {
       {loading ? (
         <LinearProgress />
       ) : (
-        <ul>
-          {apps.map(app => (
-            <li key={app.id}>
-              <Link href="/app/[appId]" as={`/app/${app.id}`} passHref>
-                <a>
-                  {app.name} <span className={classes.id}>({app.id})</span>
-                </a>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        <>
+          {apps.length ? (
+            <ul>
+              {apps.map(app => (
+                <li key={app.id}>
+                  <Link href="/app/[appId]" as={`/app/${app.id}`} passHref>
+                    <a>
+                      {app.name} <span className={classes.id}>({app.id})</span>
+                    </a>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No apps yet :(</p>
+          )}
+        </>
       )}
     </>
   );
