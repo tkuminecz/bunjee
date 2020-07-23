@@ -24,6 +24,8 @@ export default withDb(
 
     if (!app) throw new Error(`No app found with id ${appId}`);
     const redirects = await app.redirectUris;
+    if (!redirects.length)
+      throw new Error('App has no redirect URIs configured');
 
     // check if redirect Uri matches
     const uriMatches = matcher.isMatch(
