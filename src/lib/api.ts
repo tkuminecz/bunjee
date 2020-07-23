@@ -17,7 +17,6 @@ export const withErrorHandler = (
   };
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const withDb = (
   doWork: (
     req: NextApiRequest,
