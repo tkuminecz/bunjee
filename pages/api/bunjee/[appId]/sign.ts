@@ -31,7 +31,7 @@ export default withErrorHandler(
       redirectUri,
       redirects.map(r => r.uri)
     );
-    if (!uriMatches) throw new Error('Invalid redirectUri');
+    if (!uriMatches) throw new Error(`Invalid redirectUri: ${redirectUri}`);
 
     const statePayload = { redirectUri, timestamp: new Date() };
     const state = encrypt(app.secret, JSON.stringify(statePayload));
