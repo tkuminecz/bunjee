@@ -19,12 +19,14 @@ const MyApp: React.FC<AppProps> = enhanceApp(theme)(
           <link
             href="https://pro.fontawesome.com/releases/v5.14.0/css/all.css"
             integrity="sha384-VhBcF/php0Z/P5ZxlxaEx1GwqTQVIBu4G4giRWxTKOCjTxsPFETUDdVL5B6vYvOt"
-            rel="stylesheet"
             crossOrigin="anonymous"
+            rel="preload"
+            as="style"
           />
           <link
             href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap"
-            rel="stylesheet"
+            rel="preload"
+            as="style"
           />
           <meta
             name="viewport"
