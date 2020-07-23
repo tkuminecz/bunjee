@@ -54,14 +54,8 @@ export class AppResolver {
 
   @Mutation(() => App)
   async refreshAppSecret(@Arg('id') id: string): Promise<App> {
-    // await this.appRepo.findOneOrFail(id);
     await this.appRepo.update(id, { secret: await generateSecret() });
     return this.appRepo.findOneOrFail(id);
-
-    // console.log(app);
-    // app.secret = await generateSecret();
-    // console.log(app);
-    // return this.appRepo.save(app);
   }
 
   @Mutation(() => App)
