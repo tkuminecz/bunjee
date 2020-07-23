@@ -35,7 +35,7 @@ export default withDb(
     const state = encrypt(app.secret, JSON.stringify({ redirectUri }));
     const canonicalUrl = await getCanonicalUrl();
     res.json({
-      redirectUri: `${getBaseUrl(canonicalUrl)}/api/app/${appId}/callback`,
+      redirectUri: `${getBaseUrl(canonicalUrl)}/api/bunjee/${appId}/callback`,
       state,
     });
     res.end();
