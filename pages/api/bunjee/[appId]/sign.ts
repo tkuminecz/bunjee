@@ -27,10 +27,11 @@ export default withErrorHandler(
       throw new Error('App has no redirect URIs configured');
 
     // check if redirect Uri matches
-    const uriMatches = matcher.isMatch(
-      redirectUri,
-      redirects.map(r => r.uri)
-    );
+    const uriMatches =
+      matcher(
+        [redirectUri],
+        redirects.map(r => r.uri)
+      ).length > 0;
     if (!uriMatches) throw new Error(`Invalid redirectUri: ${redirectUri}`);
 
     const statePayload = { redirectUri, timestamp: new Date() };
