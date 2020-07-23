@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { ISession } from '@auth0/nextjs-auth0/dist/session/session';
 import { getRepository } from 'typeorm';
 import { getAuth0 } from '~/auth0';
-import { withDb } from '~/db';
+import { withDb } from '~lib/api';
 import { User } from '~/models/User';
 
 export default withDb(

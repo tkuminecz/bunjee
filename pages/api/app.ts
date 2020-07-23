@@ -1,5 +1,4 @@
-import { withDb } from '~/db';
-import { withErrorHandler } from '~lib/api';
+import { withDb, withErrorHandler } from '~lib/api';
 
 export default withDb(
   withErrorHandler(async req => {
