@@ -16,19 +16,24 @@ const connection = connectionManager.create({
 let connections = 0;
 
 export const connect = async (): Promise<() => Promise<void>> => {
-  connections += 1;
-  if (!connection.isConnected) {
-    await connection.connect();
-  }
-  // eslint-disable-next-line no-console
-  console.log('db connection', connection, connection.entityMetadatas);
-
-  return async () => {
-    connections -= 1;
-    if (connections === 0) {
-      await connection.close();
+  if (process.env.PERSISTENT_DB_CONNECTS === 'true') {
+    connections += 1;
+    if (!connection.isConnected) {
+      await connection.connect();
     }
-  };
+    // eslint-disable-next-line no-console
+    console.log('db connection', connection, connection.entityMetadatas);
+
+    return async () => {
+      connections -= 1;
+      if (connections === 0) {
+        await connection.close();
+      }
+    };
+  }
+
+  await connection.connect();
+  return () => connection.close();
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
