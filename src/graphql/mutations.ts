@@ -9,6 +9,24 @@ export const CREATE_APP = gql`
   }
 `;
 
+export const UPDATE_APP = gql`
+  mutation UpdateApp($appId: String!, $data: UpdateApp!) {
+    updateApp(id: $appId, data: $data) {
+      id
+      name
+    }
+  }
+`;
+
+export const REFRESH_APP_SECRET = gql`
+  mutation RefreshAppSecret($appId: String!) {
+    refreshAppSecret(id: $appId) {
+      id
+      name
+    }
+  }
+`;
+
 export const DELETE_APP = gql`
   mutation DeleteApp($appId: String!) {
     deleteApp(id: $appId) {

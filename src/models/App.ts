@@ -16,7 +16,7 @@ export class App {
   @Field()
   id: string;
 
-  @Column()
+  @Column({ unique: true })
   @Field()
   name: string;
 
