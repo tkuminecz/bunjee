@@ -19,7 +19,11 @@ const CreateAppPage: React.FC = () => {
   const router = useRouter()
   const classes = useStyles()
   const [createApp, { loading: saving, data, error }] = useMutation(CREATE_APP)
-  const { handleSubmit, register, errors } = useForm()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm()
   const onSubmit = async (values) => {
     await createApp({
       variables: {
@@ -51,7 +55,7 @@ const CreateAppPage: React.FC = () => {
                 type="text"
                 id="app.name"
                 name="name"
-                ref={register({ required: 'Required' })}
+                {...register('name')}
               />
             </label>
             {errors?.name?.message && (

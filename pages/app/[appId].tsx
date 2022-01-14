@@ -38,7 +38,12 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
     }
   }
 
-  const { handleSubmit, register, errors, reset } = useForm()
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm()
   const [createRedirectUri] = useMutation(CREATE_REDIRECT_URI, {
     refetchQueries: [{ query: GET_APP, variables: { appId } }],
   })
@@ -80,11 +85,7 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
           ))}
         </ul>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            name="redirectUri"
-            ref={register({ required: 'Required' })}
-          />
+          <input type="text" name="redirectUri" {...register('redirectUri')} />
           <button type="submit" disabled={errors.redirectUri?.message}>
             Add Redirect URI
           </button>

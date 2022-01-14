@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { ISession } from '@auth0/nextjs-auth0/dist/session/session'
+import { Session } from '@auth0/nextjs-auth0'
 import { getRepository } from 'typeorm'
 import { getAuth0 } from '~/auth0'
 import { withDb } from '~lib/api'
@@ -8,7 +8,7 @@ import { User } from '~/models/User'
 export default withDb(
   async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     const auth0 = await getAuth0()
-    const onUserLoaded = async (rq, rs, session: ISession) => {
+    const afterCallback = async (rq, rs, session: Session) => {
       const email: void | string = session?.user?.email
       if (!email) throw new Error('User claims does not include email!')
       const userRepo = getRepository(User)
@@ -20,6 +20,6 @@ export default withDb(
       }
       return session
     }
-    await auth0.handleCallback(req, res, { onUserLoaded })
+    await auth0.handleCallback(req, res, { afterCallback })
   }
 )

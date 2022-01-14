@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import { getRepository } from 'typeorm'
-import matcher from 'matcher'
+import { matcher } from 'matcher'
 import { App } from '~/models/App'
 import { encrypt } from '~/crypt'
 import { withDb, withErrorHandler } from '~lib/api'

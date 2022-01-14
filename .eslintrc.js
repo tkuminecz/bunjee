@@ -3,7 +3,7 @@ module.exports = {
     '@tkuminecz/eslint-config/typescript',
     '@tkuminecz/eslint-config/prettier',
   ],
-  plugins: ['import', 'jest', 'react-hooks'],
+  plugins: ['import', 'jest', 'react', 'react-hooks'],
   /* parserOptions: {
     ecmaVersion: '2019',
     sourceType: 'module',

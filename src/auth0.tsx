@@ -1,7 +1,7 @@
 import 'isomorphic-unfetch'
 import React, { useState, useEffect, useContext } from 'react'
 import { initAuth0 } from '@auth0/nextjs-auth0'
-import { ISignInWithAuth0 } from '@auth0/nextjs-auth0/dist/instance'
+import { SignInWithAuth0 } from '@auth0/nextjs-auth0/dist/instance'
 import { getBaseUrl } from './helpers'
 import { getCanonicalUrl } from './vercel'
 
@@ -9,27 +9,24 @@ const inBrowser = !(typeof window === 'undefined')
 
 const SEVEN_DAYS = 60 * 60 * 24 * 7
 
-export const getAuth0 = async (): Promise<ISignInWithAuth0> => {
+export const getAuth0 = async (): Promise<SignInWithAuth0> => {
   const canonicalUrl = await getCanonicalUrl()
   const baseUrl = getBaseUrl(canonicalUrl)
   return initAuth0({
-    domain: process.env.AUTH0_DOMAIN,
-    clientId: process.env.AUTH0_CLIENT_ID,
+    issuerBaseURL: process.env.AUTH0_DOMAIN,
+    clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    scope: 'openid profile email',
-    redirectUri: `${baseUrl}/api/auth/callback`,
-    postLogoutRedirectUri: `${baseUrl}`,
+    authorizationParams: { scope: 'openid profile email' },
+    routes: {
+      callback: `/api/auth/callback`,
+      postLogoutRedirect: `${baseUrl}`,
+    },
+    secret: process.env.AUTH0_COOKIE_SECRET,
     session: {
-      cookieSecret: process.env.AUTH0_COOKIE_SECRET,
-      cookieLifetime: SEVEN_DAYS,
-      storeIdToken: true,
-      storeAccessToken: true,
-      storeRefreshToken: true,
+      rollingDuration: SEVEN_DAYS,
     },
-    oidcClient: {
-      httpTimeout: 2500,
-      clockTolerance: 10000,
-    },
+    httpTimeout: 2500,
+    clockTolerance: 10000,
   })
 }
 

@@ -21,9 +21,10 @@ interface ApolloServerModule {
 const bootstrap = async (): Promise<ApolloServerModule> => {
   const context = async (ctx: NextPageContext): Promise<GqlContext> => {
     const auth0 = await getAuth0()
-    const session = await auth0.getSession(ctx.req)
-    const tokenCache = await auth0.tokenCache(ctx.req, ctx.res)
-    const { accessToken } = await tokenCache.getAccessToken()
+    const session = await auth0.getSession(ctx.req, ctx.res)
+    const { accessToken } = await auth0.getAccessToken(ctx.req, ctx.res, {
+      scopes: [],
+    })
     const idToken = session?.idToken
     if (!accessToken || !idToken) {
       throw new Error('Missing accessToken or idToken!')
@@ -44,11 +45,11 @@ const bootstrap = async (): Promise<ApolloServerModule> => {
   const server = new ApolloServer({
     schema,
     context,
-    playground: {
-      settings: {
-        'request.credentials': 'include',
-      },
-    },
+    // playground: {
+    //   settings: {
+    //     'request.credentials': 'include',
+    //   },
+    // },
   })
   const handleRequest = server.getRequestHandler({ baseUrl: '/api/graphql' })
   return { handleRequest }
