@@ -1,20 +1,20 @@
-import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
-import Header from './Header';
+import React from 'react'
+import { Container, makeStyles } from '@material-ui/core'
+import Header from './Header'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   page: {
     margin: theme.spacing(2, 1),
   },
   content: {},
-}));
+}))
 
 interface Props {
-  children: React.ReactNode;
+  children: React.ReactNode
 }
 
 const Page: React.FC<Props> = ({ children }) => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.page}>
       <Header />
@@ -22,7 +22,7 @@ const Page: React.FC<Props> = ({ children }) => {
         <Container>{children}</Container>
       </main>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default Page

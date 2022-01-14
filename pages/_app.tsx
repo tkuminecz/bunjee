@@ -1,13 +1,13 @@
-import React from 'react';
-import { CssBaseline } from '@material-ui/core';
-import App, { AppProps } from 'next/app';
-import Head from 'next/head';
-import { ApolloProvider } from '@apollo/client';
-import theme from '~/theme';
-import { Auth0Provider } from '~/auth0';
-import { enhanceApp } from '~/lib/next-mui-jss';
-import AuthGuard from '~/components/AuthGuard';
-import { apolloClient } from '~/apollo';
+import React from 'react'
+import { CssBaseline } from '@material-ui/core'
+import App, { AppProps } from 'next/app'
+import Head from 'next/head'
+import { ApolloProvider } from '@apollo/client'
+import theme from '~/theme'
+import { Auth0Provider } from '~/auth0'
+import { enhanceApp } from '~/lib/next-mui-jss'
+import AuthGuard from '~/components/AuthGuard'
+import { apolloClient } from '~/apollo'
 
 const MyApp: React.FC<AppProps> = enhanceApp(theme)(
   ({ Component, pageProps }) => {
@@ -33,12 +33,12 @@ const MyApp: React.FC<AppProps> = enhanceApp(theme)(
           </ApolloProvider>
         </AuthGuard>
       </Auth0Provider>
-    );
+    )
   }
-);
+)
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-MyApp.getInitialProps = App.getInitialProps;
+MyApp.getInitialProps = App.getInitialProps
 
-export default MyApp;
+export default MyApp

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
-import Link from 'next/link';
-import Logo from './Logo';
+import React from 'react'
+import { Container, makeStyles } from '@material-ui/core'
+import Link from 'next/link'
+import Logo from './Logo'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     borderBottom: '1px solid #bbb',
     marginBottom: theme.spacing(2),
@@ -16,10 +16,10 @@ const useStyles = makeStyles(theme => ({
   nav: {
     marginLeft: theme.spacing(2),
   },
-}));
+}))
 
 const Header: React.FC = () => {
-  const classes = useStyles();
+  const classes = useStyles()
   return (
     <div className={classes.wrapper}>
       <Container>
@@ -33,7 +33,7 @@ const Header: React.FC = () => {
         </header>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header
