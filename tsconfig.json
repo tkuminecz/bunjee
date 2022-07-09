@@ -21,10 +21,17 @@
     "emitDecoratorMetadata": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["src/*"],
-      "~pages/*": ["pages/*"],
-      "~lib/*": ["src/lib/*"]
-    }
+      "~/*": [
+        "src/*"
+      ],
+      "~pages/*": [
+        "pages/*"
+      ],
+      "~lib/*": [
+        "src/lib/*"
+      ]
+    },
+    "incremental": true
   },
   "exclude": [
     "node_modules"
