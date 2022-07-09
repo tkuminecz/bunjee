@@ -45,11 +45,6 @@ const bootstrap = async (): Promise<ApolloServerModule> => {
   const server = new ApolloServer({
     schema,
     context,
-    // playground: {
-    //   settings: {
-    //     'request.credentials': 'include',
-    //   },
-    // },
   })
   const handleRequest = server.getRequestHandler({ baseUrl: '/api/graphql' })
   return { handleRequest }
