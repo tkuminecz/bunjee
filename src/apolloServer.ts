@@ -4,13 +4,13 @@ import { NextPageContext } from 'next'
 import { buildSchema, ClassType, NonEmptyArray } from 'type-graphql'
 import { getRepository } from 'typeorm'
 import { NextApiHandler } from 'next'
-import { getAuth0 } from '~/auth0'
 import { User } from './models/User'
 import * as resolvers from '~/resolvers'
+import { Session, unstable_getServerSession } from 'next-auth'
+import { authOptions } from './auth'
 
 export interface GqlContext extends NextPageContext {
-  accessToken: string
-  idToken: string
+  session: Session
   user: User
 }
 
@@ -20,22 +20,24 @@ interface ApolloServerModule {
 
 const bootstrap = async (): Promise<ApolloServerModule> => {
   const context = async (ctx: NextPageContext): Promise<GqlContext> => {
-    const auth0 = await getAuth0()
-    const session = await auth0.getSession(ctx.req, ctx.res)
-    const { accessToken } = await auth0.getAccessToken(ctx.req, ctx.res, {
-      scopes: [],
-    })
-    const idToken = session?.idToken
-    if (!accessToken || !idToken) {
-      throw new Error('Missing accessToken or idToken!')
+    try {
+      const session = await unstable_getServerSession(
+        ctx.req as any,
+        ctx.res as any,
+        authOptions
+      )
+      if (!session) {
+        throw new Error('Missing session!')
+      }
+      const email = session.user.email
+      const userRepo = getRepository(User)
+      const user = await userRepo.findOne({ where: { email } })
+      if (!user) throw new Error(`No user found for email ${email}`)
+      return { ...ctx, session, user }
+    } catch (err) {
+      console.error(err)
+      throw err
     }
-    const {
-      user: { email },
-    } = session
-    const userRepo = getRepository(User)
-    const user = await userRepo.findOne({ where: { email } })
-    if (!user) throw new Error(`No user found for email ${email}`)
-    return { ...ctx, accessToken, idToken, user }
   }
 
   const schema = await buildSchema({

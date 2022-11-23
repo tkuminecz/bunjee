@@ -2,9 +2,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { withDb } from '~lib/api'
 import getGraphqlServer from '~/apolloServer'
 
-const graphqlServerPromise = getGraphqlServer()
-
 export default withDb(async (req: NextApiRequest, res: NextApiResponse) => {
-  const graphql = await graphqlServerPromise
-  return graphql.handleRequest(req, res)
+  try {
+    const graphql = await getGraphqlServer()
+    return graphql.handleRequest(req, res)
+  } catch (err) {
+    console.error(err)
+    throw err
+  }
 })

@@ -47,10 +47,11 @@
     "class-validator": "~0.13.2",
     "clsx": "~1.1.1",
     "cryptr": "~6.0.2",
-    "graphql": "~16.2.0",
+    "graphql": "~15.8.0",
     "isomorphic-unfetch": "~3.1.0",
     "matcher": "~5.0.0",
-    "next": "~12.2.1",
+    "next": "~12.2.6",
+    "next-auth": "~4.17.0",
     "pg": "~8.7.1",
     "qs": "~6.10.3",
     "react": "~17.0.2",
@@ -61,5 +62,10 @@
     "ts-toolbelt": "~9.6.0",
     "type-graphql": "~1.1.1",
     "typeorm": "~0.2.41"
+  },
+  "pnpm": {
+    "overrides": {
+      "graphql": "~15.8.0"
+    }
   }
 }
