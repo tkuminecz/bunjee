@@ -1,24 +1,24 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { LinearProgress, makeStyles } from '@material-ui/core';
-import Link from 'next/link';
-import { LIST_APPS } from '~/graphql/queries';
+import React from 'react'
+import { useQuery } from '@apollo/react-hooks'
+import { LinearProgress, makeStyles } from '@material-ui/core'
+import Link from 'next/link'
+import { LIST_APPS } from '~/graphql/queries'
 
 const useStyles = makeStyles(() => ({
   id: {
     fontSize: '0.75rem',
     opacity: 0.6,
   },
-}));
+}))
 
 const AppList: React.FC = () => {
   const { data, loading, error } = useQuery(LIST_APPS, {
     fetchPolicy: 'no-cache',
-  });
-  const apps = (data && data.apps) || [];
-  const classes = useStyles();
+  })
+  const apps = (data && data.apps) || []
+  const classes = useStyles()
 
-  if (error) return <p>{error.message}</p>;
+  if (error) return <p>{error.message}</p>
 
   return (
     <>
@@ -34,7 +34,7 @@ const AppList: React.FC = () => {
         <>
           {apps.length ? (
             <ul>
-              {apps.map(app => (
+              {apps.map((app) => (
                 <li key={app.id}>
                   <Link href="/app/[appId]" as={`/app/${app.id}`} passHref>
                     <a>
@@ -50,7 +50,7 @@ const AppList: React.FC = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default AppList;
+export default AppList

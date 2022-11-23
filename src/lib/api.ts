@@ -1,35 +1,38 @@
-import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next';
-import { Connection } from 'typeorm';
-import { createDbConnection } from '~/db';
+import { NextApiRequest, NextApiResponse, NextApiHandler } from 'next'
+import { Connection } from 'typeorm'
+import { createDbConnection } from '~/db'
 
-export const withErrorHandler = (
-  handler: (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>
-) => {
+export const withErrorHandler = <T>(
+  handler: (
+    req: NextApiRequest,
+    res: NextApiResponse
+  ) => unknown | Promise<unknown>
+): NextApiHandler<T> => {
   return async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
     try {
-      await Promise.resolve(handler(req, res));
+      await handler(req, res)
     } catch (err) {
-      console.error(err);
-      res.status(err.status || 500);
-      res.send(err.message);
-      res.end();
+      console.error(err)
+      res.status(err.status || 500)
+      res.send(err.message)
+      res.end()
     }
-  };
-};
+  }
+}
 
-export const withDb = (
+export const withDb = <T>(
   doWork: (
     req: NextApiRequest,
     res: NextApiResponse,
     conn: Connection
-  ) => Promise<void>
-): NextApiHandler => {
+  ) => unknown | Promise<unknown>
+): NextApiHandler<T> => {
   return async (req, res: NextApiResponse) => {
-    const connection = await createDbConnection();
+    const connection = await createDbConnection()
     try {
-      await Promise.resolve(doWork(req, res, connection));
+      await doWork(req, res, connection)
     } finally {
-      await connection.close();
+      await connection.close()
     }
-  };
-};
+  }
+}

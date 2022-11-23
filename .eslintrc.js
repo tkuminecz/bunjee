@@ -1,24 +1,10 @@
-const path = require('path');
-
 module.exports = {
-  // So parent files don't get applied
-  root: true,
-  globals: {
-    preval: false,
-  },
   extends: [
-    'airbnb-typescript',
-    'plugin:jest/recommended',
-    'plugin:react/recommended',
-    'plugin:jsx-a11y/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'prettier/react',
-    'plugin:prettier/recommended',
+    '@tkuminecz/eslint-config/typescript',
+    '@tkuminecz/eslint-config/prettier',
   ],
-  plugins: ['babel', 'import', 'jest', 'react-hooks', 'jsx-a11y'],
-  parser: '@typescript-eslint/parser',
-  parserOptions: {
+  plugins: ['import', 'jest', 'react', 'react-hooks'],
+  /* parserOptions: {
     ecmaVersion: '2019',
     sourceType: 'module',
     ecmaFeatures: {
@@ -98,5 +84,5 @@ module.exports = {
     'class-methods-use-this': 'off',
     'no-nested-ternary': 'off',
     'max-classes-per-file': 'off'
-  },
+  }, */
 };

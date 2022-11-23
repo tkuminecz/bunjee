@@ -1,10 +1,10 @@
-import { withDb, withErrorHandler } from '~lib/api';
+import { withDb, withErrorHandler } from '~lib/api'
 
 export default withDb(
-  withErrorHandler(async req => {
+  withErrorHandler((req) => {
     switch (req.method.toUpperCase()) {
       default:
-        throw new Error(`${req.method.toUpperCase()} not supported`);
+        throw new Error(`${req.method.toUpperCase()} not supported`)
     }
   })
-);
+)

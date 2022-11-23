@@ -1,8 +1,8 @@
-import 'reflect-metadata';
-import { createConnection, Connection } from 'typeorm';
-import { App } from '~/models/App';
-import { RedirectUri } from './models/RedirectUri';
-import { User } from './models/User';
+import 'reflect-metadata'
+import { createConnection, Connection } from 'typeorm'
+import { App } from '~/models/App'
+import { RedirectUri } from './models/RedirectUri'
+import { User } from './models/User'
 
 export const createDbConnection = async (): Promise<Connection> => {
   return createConnection({
@@ -11,5 +11,5 @@ export const createDbConnection = async (): Promise<Connection> => {
     synchronize: true,
     entityPrefix: process.env.DB_PREFIX,
     entities: [App, RedirectUri, User],
-  });
-};
+  })
+}

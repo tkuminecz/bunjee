@@ -1,4 +1,4 @@
-import { gql } from '@apollo/react-hooks';
+import { gql } from '@apollo/react-hooks'
 
 export const CREATE_APP = gql`
   mutation CreateApp($data: CreateApp!) {
@@ -7,7 +7,7 @@ export const CREATE_APP = gql`
       name
     }
   }
-`;
+`
 
 export const UPDATE_APP = gql`
   mutation UpdateApp($appId: String!, $data: UpdateApp!) {
@@ -16,7 +16,7 @@ export const UPDATE_APP = gql`
       name
     }
   }
-`;
+`
 
 export const REFRESH_APP_SECRET = gql`
   mutation RefreshAppSecret($appId: String!) {
@@ -25,7 +25,7 @@ export const REFRESH_APP_SECRET = gql`
       name
     }
   }
-`;
+`
 
 export const DELETE_APP = gql`
   mutation DeleteApp($appId: String!) {
@@ -34,7 +34,7 @@ export const DELETE_APP = gql`
       name
     }
   }
-`;
+`
 
 export const CREATE_REDIRECT_URI = gql`
   mutation CreateRedirectUri($data: CreateRedirectUri!) {
@@ -43,7 +43,7 @@ export const CREATE_REDIRECT_URI = gql`
       uri
     }
   }
-`;
+`
 
 export const DELETE_REDIRECT_URI = gql`
   mutation DeleteRedirectUri($redirectUriId: String!) {
@@ -52,4 +52,4 @@ export const DELETE_REDIRECT_URI = gql`
       uri
     }
   }
-`;
+`

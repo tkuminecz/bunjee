@@ -1,12 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
+import React from 'react'
+import { signOut } from 'next-auth/react'
 
-const LogoutButton: React.FC = () => {
-  return (
-    <Link href="/api/auth/logout" passHref>
-      <a>Logout</a>
-    </Link>
-  );
-};
+const LogoutButton = () => {
+  return <button onClick={() => signOut()}>Logout</button>
+}
 
-export default LogoutButton;
+export default LogoutButton

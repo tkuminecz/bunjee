@@ -1,33 +1,33 @@
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { enhanceDocument } from '~/lib/next-mui-jss';
-import { getCanonicalUrl } from '~/vercel';
-import { getBaseUrl } from '~/helpers';
+import React from 'react'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
+import { enhanceDocument } from '~/lib/next-mui-jss'
+import { getCanonicalUrl } from '~/vercel'
+import { getBaseUrl } from '~/helpers'
 
-const redirectToCanonicalUrl = async ctx => {
+const redirectToCanonicalUrl = async (ctx) => {
   if (process.env.USE_CANONICAL_HOST === 'true' && ctx.req) {
     // we are server-side
-    const currentHost = ctx.req.headers.host;
-    const canonicalUrl = await getCanonicalUrl();
+    const currentHost = ctx.req.headers.host
+    const canonicalUrl = await getCanonicalUrl()
     if (currentHost !== canonicalUrl) {
       // we're not on the canonical url, redirect
-      const destUrl = `${getBaseUrl(canonicalUrl)}${ctx.req.url}`;
+      const destUrl = `${getBaseUrl(canonicalUrl)}${ctx.req.url}`
       // eslint-disable-next-line no-console
       console.warn(
         `Not at canonical url (${currentHost}), redirecting to ${destUrl}`
-      );
+      )
       ctx.res.writeHead(302, {
         Location: destUrl,
-      });
-      ctx.res.end();
+      })
+      ctx.res.end()
     }
   }
-};
+}
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
-    await redirectToCanonicalUrl(ctx);
-    return Document.getInitialProps(ctx);
+    await redirectToCanonicalUrl(ctx)
+    return Document.getInitialProps(ctx)
   }
 
   render() {
@@ -39,8 +39,8 @@ class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default enhanceDocument(MyDocument);
+export default enhanceDocument(MyDocument)

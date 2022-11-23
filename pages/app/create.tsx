@@ -1,43 +1,47 @@
-import React, { useEffect } from 'react';
-import { useMutation } from '@apollo/react-hooks';
-import { useForm } from 'react-hook-form';
-import { makeStyles } from '@material-ui/core';
-import { useRouter } from 'next/router';
-import Page from '~/components/Page';
-import { CREATE_APP } from '~/graphql/mutations';
+import React, { useEffect } from 'react'
+import { useMutation } from '@apollo/react-hooks'
+import { useForm } from 'react-hook-form'
+import { makeStyles } from '@material-ui/core'
+import { useRouter } from 'next/router'
+import Page from '~/components/Page'
+import { CREATE_APP } from '~/graphql/mutations'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   error: {
     color: theme.palette.error.main,
     fontSize: '0.75rem',
     fontWeight: 600,
     margin: theme.spacing(0.5, 0),
   },
-}));
+}))
 
 const CreateAppPage: React.FC = () => {
-  const router = useRouter();
-  const classes = useStyles();
-  const [createApp, { loading: saving, data, error }] = useMutation(CREATE_APP);
-  const { handleSubmit, register, errors } = useForm();
-  const onSubmit = async values => {
+  const router = useRouter()
+  const classes = useStyles()
+  const [createApp, { loading: saving, data, error }] = useMutation(CREATE_APP)
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm()
+  const onSubmit = async (values) => {
     await createApp({
       variables: {
         data: {
           name: values.name,
         },
       },
-    });
-  };
+    })
+  }
 
-  const created = data && !saving && !error;
+  const created = data && !saving && !error
   useEffect(() => {
     if (created) {
       setTimeout(() => {
-        void router.replace('/app/[appId]', `/app/${data?.createApp.id}`);
-      }, 500);
+        void router.replace('/app/[appId]', `/app/${data?.createApp.id}`)
+      }, 500)
     }
-  }, [created, data, router]);
+  }, [created, data, router])
 
   return (
     <Page>
@@ -51,7 +55,7 @@ const CreateAppPage: React.FC = () => {
                 type="text"
                 id="app.name"
                 name="name"
-                ref={register({ required: 'Required' })}
+                {...register('name')}
               />
             </label>
             {errors?.name?.message && (
@@ -68,7 +72,7 @@ const CreateAppPage: React.FC = () => {
         <p>Created! Redirecting to app page...</p>
       )}
     </Page>
-  );
-};
+  )
+}
 
-export default CreateAppPage;
+export default CreateAppPage

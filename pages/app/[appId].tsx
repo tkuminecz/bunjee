@@ -1,69 +1,71 @@
-import React from 'react';
-import { useQuery, useMutation } from '@apollo/react-hooks';
-import { NextPage } from 'next';
-import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
-import Page from '~/components/Page';
-import { GET_APP, LIST_APPS } from '~/graphql/queries';
+import React from 'react'
+import { useQuery, useMutation } from '@apollo/react-hooks'
+import { NextPage } from 'next'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import Page from '~/components/Page'
+import { GET_APP, LIST_APPS } from '~/graphql/queries'
 import {
   DELETE_APP,
   CREATE_REDIRECT_URI,
   DELETE_REDIRECT_URI,
   REFRESH_APP_SECRET,
-} from '~/graphql/mutations';
+} from '~/graphql/mutations'
 
 interface Props {
-  appId: string;
+  appId: string
 }
 
 export const AppDetails: NextPage<Props> = ({ appId }) => {
-  const router = useRouter();
+  const router = useRouter()
 
-  const { data } = useQuery(GET_APP, { variables: { appId } });
+  const { data } = useQuery(GET_APP, { variables: { appId } })
 
   const [deleteApp] = useMutation(DELETE_APP, {
     variables: { appId },
     refetchQueries: [{ query: LIST_APPS }],
-  });
+  })
   const onDelete = async () => {
-    // eslint-disable-next-line no-alert
     const confirmed = window.confirm(
       `Are you sure you want to delete ${data?.app.name}?`
-    );
+    )
     if (confirmed) {
       // delete the app
-      const deleteData = await deleteApp();
+      const deleteData = await deleteApp()
       if (deleteData) {
-        void router.push('/');
+        void router.push('/')
       }
     }
-  };
+  }
 
-  const { handleSubmit, register, errors, reset } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    reset,
+  } = useForm()
   const [createRedirectUri] = useMutation(CREATE_REDIRECT_URI, {
     refetchQueries: [{ query: GET_APP, variables: { appId } }],
-  });
+  })
   const onSubmit = async ({ redirectUri: uri }) => {
-    await createRedirectUri({ variables: { data: { uri, appId } } });
-    reset();
-  };
+    await createRedirectUri({ variables: { data: { uri, appId } } })
+    reset()
+  }
 
   const [deleteRedirectUri] = useMutation(DELETE_REDIRECT_URI, {
     refetchQueries: [{ query: GET_APP, variables: { appId } }],
-  });
-  const onDeleteRedirectUri = redirectUriId => async () => {
-    // eslint-disable-next-line no-alert
+  })
+  const onDeleteRedirectUri = (redirectUriId) => async () => {
     if (window.confirm(`Delete this uri?`)) {
-      await deleteRedirectUri({ variables: { redirectUriId } });
+      await deleteRedirectUri({ variables: { redirectUriId } })
     }
-  };
+  }
 
-  const [refreshAppSecret, { loading: refreshingSecret }] = useMutation(
-    REFRESH_APP_SECRET
-  );
+  const [refreshAppSecret, { loading: refreshingSecret }] =
+    useMutation(REFRESH_APP_SECRET)
   const onRefreshAppSecret = async () => {
-    await refreshAppSecret({ variables: { appId } });
-  };
+    await refreshAppSecret({ variables: { appId } })
+  }
 
   return (
     <Page>
@@ -71,7 +73,7 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
       <div>
         <h4>Redirect URIs</h4>
         <ul>
-          {(data?.app.redirectUris || []).map(entry => (
+          {(data?.app.redirectUris || []).map((entry) => (
             <li key={entry.id}>
               <pre>
                 {entry.uri}
@@ -83,11 +85,7 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
           ))}
         </ul>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            type="text"
-            name="redirectUri"
-            ref={register({ required: 'Required' })}
-          />
+          <input type="text" name="redirectUri" {...register('redirectUri')} />
           <button type="submit" disabled={errors.redirectUri?.message}>
             Add Redirect URI
           </button>
@@ -104,13 +102,13 @@ export const AppDetails: NextPage<Props> = ({ appId }) => {
         Delete App
       </button>
     </Page>
-  );
-};
+  )
+}
 
 AppDetails.getInitialProps = async ({ query }) => {
-  const { appId } = query;
-  if (Array.isArray(appId)) throw new Error('expected single appId');
-  return { appId };
-};
+  const { appId } = query
+  if (Array.isArray(appId)) throw new Error('expected single appId')
+  return { appId }
+}
 
-export default AppDetails;
+export default AppDetails

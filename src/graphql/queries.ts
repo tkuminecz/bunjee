@@ -1,4 +1,4 @@
-import { gql } from '@apollo/react-hooks';
+import { gql } from '@apollo/react-hooks'
 
 export const LIST_APPS = gql`
   query ListApps {
@@ -7,7 +7,7 @@ export const LIST_APPS = gql`
       name
     }
   }
-`;
+`
 
 export const GET_APP = gql`
   query GetApp($appId: String!) {
@@ -20,4 +20,4 @@ export const GET_APP = gql`
       }
     }
   }
-`;
+`

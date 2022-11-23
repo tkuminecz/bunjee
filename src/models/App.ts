@@ -4,40 +4,40 @@ import {
   PrimaryGeneratedColumn,
   OneToMany,
   ManyToOne,
-} from 'typeorm';
-import { Field, ObjectType, InputType } from 'type-graphql';
-import { RedirectUri } from './RedirectUri';
-import { User } from './User';
+} from 'typeorm'
+import { Field, ObjectType, InputType } from 'type-graphql'
+import { RedirectUri } from './RedirectUri'
+import { User } from './User'
 
 @Entity()
 @ObjectType()
 export class App {
   @PrimaryGeneratedColumn('uuid')
   @Field()
-  id: string;
+  id: string
 
   @Column({ unique: true })
   @Field()
-  name: string;
+  name: string
 
   @Column()
-  secret: string;
+  secret: string
 
-  @ManyToOne(() => User, user => user.apps)
-  user: Promise<User>;
+  @ManyToOne(() => User, (user) => user.apps)
+  user: Promise<User>
 
-  @OneToMany(() => RedirectUri, redirectUri => redirectUri.app)
-  redirectUris: Promise<RedirectUri[]>;
+  @OneToMany(() => RedirectUri, (redirectUri) => redirectUri.app)
+  redirectUris: Promise<RedirectUri[]>
 }
 
 @InputType()
 export class CreateApp {
   @Field()
-  name: string;
+  name: string
 }
 
 @InputType()
 export class UpdateApp {
   @Field()
-  name: string;
+  name: string
 }
