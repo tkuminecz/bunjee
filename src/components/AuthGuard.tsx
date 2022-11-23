@@ -1,8 +1,8 @@
 import React from 'react'
 import { CircularProgress, makeStyles } from '@material-ui/core'
-import { useAuth0User } from '~/auth0'
 import LoginButton from './LoginButton'
 import Logo from './Logo'
+import { useSession } from 'next-auth/react'
 
 const useStyles = makeStyles(() => ({
   wrapper: {
@@ -27,11 +27,12 @@ interface Props {
 }
 
 const AuthGuard: React.FC<Props> = ({ children }) => {
-  const { user, loading } = useAuth0User()
+  const { data: session, status } = useSession()
+  const loading = status === 'loading'
   const classes = useStyles()
   return (
     <>
-      {loading || !user ? (
+      {loading || !session ? (
         <>
           <div className={classes.wrapper}>
             <Logo className={classes.logo} />

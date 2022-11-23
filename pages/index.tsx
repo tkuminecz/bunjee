@@ -1,14 +1,14 @@
 import React from 'react'
-import { useAuth0User } from '~/auth0'
+import { useSession } from 'next-auth/react'
 import LogoutButton from '~/components/LogoutButton'
 import Page from '~/components/Page'
 import AppList from '~/components/AppList'
 
 const Homepage: React.FC = () => {
-  const { user } = useAuth0User()
+  const { data: session } = useSession()
   return (
     <Page>
-      <div>welcome {user?.email}</div>
+      <div>welcome {session.user?.email}</div>
       <div>
         <LogoutButton />
       </div>

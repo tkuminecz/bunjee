@@ -3,8 +3,8 @@ import { CssBaseline } from '@material-ui/core'
 import App, { AppProps } from 'next/app'
 import Head from 'next/head'
 import { ApolloProvider } from '@apollo/client'
+import { SessionProvider } from 'next-auth/react'
 import theme from '~/theme'
-import { Auth0Provider } from '~/auth0'
 import { enhanceApp } from '~/lib/next-mui-jss'
 import AuthGuard from '~/components/AuthGuard'
 import { apolloClient } from '~/apollo'
@@ -12,7 +12,7 @@ import { apolloClient } from '~/apollo'
 const MyApp: React.FC<AppProps> = enhanceApp(theme)(
   ({ Component, pageProps }) => {
     return (
-      <Auth0Provider>
+      <SessionProvider>
         <Head>
           <title>bunjee</title>
           <link rel="icon" type="image/svg+xml" href="/bunjee.svg" />
@@ -32,7 +32,7 @@ const MyApp: React.FC<AppProps> = enhanceApp(theme)(
             <Component {...pageProps} />
           </ApolloProvider>
         </AuthGuard>
-      </Auth0Provider>
+      </SessionProvider>
     )
   }
 )

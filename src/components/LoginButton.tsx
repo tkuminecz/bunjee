@@ -1,11 +1,11 @@
 import React from 'react'
-import Link from 'next/link'
+import { signIn } from 'next-auth/react'
 
 const LoginButton: React.FC = () => {
   return (
-    <Link href="/api/auth/login" passHref>
+    <button onClick={() => signIn()}>
       <a>Login</a>
-    </Link>
+    </button>
   )
 }
 

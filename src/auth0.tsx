@@ -13,7 +13,7 @@ export const getAuth0 = async (): Promise<SignInWithAuth0> => {
   const canonicalUrl = await getCanonicalUrl()
   const baseUrl = getBaseUrl(canonicalUrl)
   return initAuth0({
-    issuerBaseURL: process.env.AUTH0_DOMAIN,
+    issuerBaseURL: process.env.AUTH0_ISSUER,
     clientID: process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
     authorizationParams: { scope: 'openid profile email' },
@@ -21,7 +21,7 @@ export const getAuth0 = async (): Promise<SignInWithAuth0> => {
       callback: `/api/auth/callback`,
       postLogoutRedirect: `${baseUrl}`,
     },
-    secret: process.env.AUTH0_COOKIE_SECRET,
+    secret: process.env.NEXTAUTH_SECRET,
     session: {
       rollingDuration: SEVEN_DAYS,
     },
